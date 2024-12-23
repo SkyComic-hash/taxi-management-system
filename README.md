@@ -81,40 +81,66 @@ The Rentit Taxi Management System follows a **layered architecture** for clean s
 
 The following is the basic schema structure used in the system:
 
-- **Users Table:**
-  - `UserID` (Primary Key)
-  - `Username`
-  - `PasswordHash`
-  - `Role` (Admin, Driver, Customer)
+**Admins Table:**
 
-- **Taxis Table:**
-  - `TaxiID` (Primary Key)
-  - `LicensePlate`
-  - `DriverID` (Foreign Key to Users)
-  - `CurrentStatus` (Available, In-Use, Under Maintenance)
+- AdminID (Primary Key)  
+- AdminName  
+- AdminUsername  
+- AdminPassword  
+- AdminAddress  
+- Gender  
 
-- **Bookings Table:**
-  - `BookingID` (Primary Key)
-  - `CustomerID` (Foreign Key to Users)
-  - `TaxiID` (Foreign Key to Taxis)
-  - `BookingTime`
-  - `Status` (Pending, Completed, Canceled)
+---
 
-- **Trips Table:**
-  - `TripID` (Primary Key)
-  - `BookingID` (Foreign Key to Bookings)
-  - `StartLocation`
-  - `EndLocation`
-  - `StartTime`
-  - `EndTime`
-  - `Fare`
+**Customers Table:**
 
-- **Payments Table:**
-  - `PaymentID` (Primary Key)
-  - `TripID` (Foreign Key to Trips)
-  - `Amount`
-  - `PaymentMethod` (CreditCard, Cash)
-  - `PaymentStatus` (Completed, Pending)
+- CustomerID (Primary Key, Composite with CustomerName)  
+- CustomerName (Primary Key, Composite with CustomerID)  
+- CustomerUsername  
+- CustomerPassword  
+- CustomerAddress  
+- CustomerContact  
+- Gender  
+
+---
+
+**Drivers Table:**
+
+- DriverID (Primary Key)  
+- DriverName  
+- DriverPassword  
+- DriverAddress  
+- DriverContact  
+- DriverGender  
+- DriverStatus (Default: Available)  
+
+---
+
+**Cars Table:**
+
+- CarID (Primary Key)  
+- Make  
+- FuelType  
+- VehicleType  
+- Model  
+- PlateNumber  
+- ManufactureYear  
+- Cost  
+- CarStatus (Default: Available)  
+
+---
+
+**Orders Table:**
+
+- OrderID (Primary Key)  
+- CustomerID (Foreign Key to Customers)  
+- CustomerName (Foreign Key to Customers)  
+- DriverID (Foreign Key to Drivers)  
+- CarID (Foreign Key to Cars)  
+- Destination  
+- StartDate  
+- EndDate  
+- OrderStatus (Default: On Going)  
 
 ---
 
