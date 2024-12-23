@@ -35,12 +35,7 @@ This project follows solid object-oriented design principles, such as **SOLID pr
   
 - **Trip Tracking:**
   - Real-time tracking of trips.
-  - Driver location tracking using GPS data (optional feature).
   - Trip history for both customers and drivers.
-  
-- **Payment Processing:**
-  - Integration with payment gateways for secure transactions.
-  - Fare calculation based on distance, time, and type of vehicle.
   
 - **Reporting:**
   - Admin can view reports of completed trips, earnings, driver performance, and more.
