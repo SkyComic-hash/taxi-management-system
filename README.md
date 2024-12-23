@@ -51,8 +51,8 @@ This project follows solid object-oriented design principles, such as **SOLID pr
 
 - **C#**: Main programming language used for backend development.
 - **SQL Server**: Database management system used to store system data.
-- **ASP.NET Core**: For building the backend APIs (if applicable).
-- **Windows Forms/WPF**: For user interface (if applicable).
+- **ASP.NET Core**: For building the backend APIs.
+- **Windows Forms/WPF**: For user interface.
 - **Entity Framework**: ORM for database interactions.
 - **Microsoft Visual Studio**: IDE used for development.
 - **Git**: Version control system.
