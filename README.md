@@ -60,14 +60,8 @@ The Rentit Taxi Management System follows a **layered architecture** for clean s
 
 1. **Presentation Layer** (UI):
    - Handles user interaction through forms or web pages.
-   
-2. **Business Logic Layer** (BLL):
-   - Contains all business logic such as fare calculations, trip assignments, and payment processing.
-   
-3. **Data Access Layer** (DAL):
-   - Manages interactions with the SQL database using **Entity Framework** for ORM-based data operations.
 
-4. **Database**:
+2. **Database**:
    - SQL Server used to store data regarding users, bookings, trips, taxis, payments, etc.
 
 ---
