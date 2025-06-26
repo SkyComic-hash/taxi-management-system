@@ -1,4 +1,13 @@
 public class OrderService
+public OrderModel GetActiveOrderByDriverId(int driverId)
+{
+    // В реальном приложении здесь будет запрос к базе данных
+    // Это пример с тестовыми данными
+    
+    return orders.FirstOrDefault(o => 
+        o.DriverId == driverId && 
+        (o.Status == "Accepted" || o.Status == "InProgress"));
+}
 {
     private List<OrderModel> orders = new List<OrderModel>();
     private readonly PricingService pricingService = new PricingService();
