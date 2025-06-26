@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using System.Windows.Forms;
+using CabSystem.Services;
 
 namespace CabSystem
 {
     public partial class Login : Form
     {
+        // Публичные свойства для передачи данных в Program.cs
+        public UserType LoggedInUserType { get; private set; }
+        public int LoggedInUserId { get; private set; }
+
         public Login()
         {
             InitializeComponent();
@@ -24,12 +22,12 @@ namespace CabSystem
 
         private void MinimizeBtn_Click(object sender, EventArgs e)
         {
-            ButtonClicks.MinimizeBtn_Click(sender,e, this);
+            ButtonClicks.MinimizeBtn_Click(sender, e, this);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            // Оставлено без изменений
         }
 
         private void Login_Load(object sender, EventArgs e)
@@ -37,15 +35,16 @@ namespace CabSystem
             LoginComboBox();
         }
 
-        //Initiating User Type Combo box
+        // Инициализация ComboBox с типами пользователей
         private void LoginComboBox()
         {
             comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox.Items.Add("Admin");
             comboBox.Items.Add("Customer");
+            comboBox.Items.Add("Driver"); // Добавлен водитель
         }
         
-        //Login Button Functionality
+        // Обработка входа
         private void Loginbutton_Click(object sender, EventArgs e)
         {
             LoginValidations loginValidations = new LoginValidations();
@@ -53,39 +52,53 @@ namespace CabSystem
             string password = passwordText.Text;
             string userType = comboBox.SelectedItem?.ToString();
 
-            //Handling Error where Username and Password are empty
-            if(string.IsNullOrEmpty(userType) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(userType) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Please Fill in the all Fields", "Error Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please Fill in all Fields", "Error Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                //Condition to check selected User type and Validating Login accordingly
-                if(userType == "Admin")
+                if (userType == "Admin")
                 {
-                    bool isValidLogin = loginValidations.AdminLoginValidation(username, password);
-
-                    if (isValidLogin)
+                    var admin = loginValidations.AdminLoginValidation(username, password);
+                    if (admin != null)
                     {
-                        AdminDashboard adminDashboard = new AdminDashboard();
-                        this.Hide();
-                        adminDashboard.Show();
+                        LoggedInUserType = UserType.Admin;
+                        LoggedInUserId = admin.AdminID;
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Invalid Username or Password","Invalid Login",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid Username or Password", "Invalid Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         ClearInputs();
                     }
                 }
                 else if (userType == "Customer")
                 {
-                    bool isValidLogin = loginValidations.CustomerLoginValidation(username, password);
-
-                    if (isValidLogin)
+                    var customer = loginValidations.CustomerLoginValidation(username, password);
+                    if (customer != null)
                     {
-                        CustomerDashboard customerDashboard = new CustomerDashboard(username);
-                        this.Hide();
-                        customerDashboard.Show();
+                        LoggedInUserType = UserType.Customer;
+                        LoggedInUserId = customer.UserId;
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid Username or Password", "Invalid Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ClearInputs();
+                    }
+                }
+                else if (userType == "Driver") // Обработка входа водителя
+                {
+                    var driver = loginValidations.DriverLoginValidation(username, password);
+                    if (driver != null)
+                    {
+                        LoggedInUserType = UserType.Driver;
+                        LoggedInUserId = driver.DriverId;
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
                     }
                     else
                     {
@@ -96,7 +109,7 @@ namespace CabSystem
             }
         }
 
-        //Loading register Page when Button is clicked
+        // Переход на страницу регистрации
         private void customerRegister_Click(object sender, EventArgs e)
         {
             CustomerSignUp customerSignUp = new CustomerSignUp();
@@ -104,7 +117,7 @@ namespace CabSystem
             customerSignUp.Show();
         }
 
-        //Clearing Inputs
+        // Очистка полей ввода
         private void ClearInputs()
         {
             comboBox.SelectedIndex = 0;
@@ -112,7 +125,7 @@ namespace CabSystem
             passwordText.Clear();
         }
 
-        //Making Password Hidden until Checkbox is clicked
+        // Переключение видимости пароля
         private void PasscheckBox_CheckedChanged(object sender, EventArgs e)
         {
             passwordText.UseSystemPasswordChar = !PasscheckBox.Checked;
