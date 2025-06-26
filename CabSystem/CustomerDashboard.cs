@@ -30,3 +30,8 @@ private void LoadOrderHistory()
     var orders = new OrderService().GetCustomerOrders(_currentCustomer.CustomerId);
     dataGridViewOrders.DataSource = orders;
 }
+private void btnOrderTaxi_Click(object sender, EventArgs e)
+{
+    OrderTaxiForm orderForm = new OrderTaxiForm(_currentCustomer);
+    orderForm.Show();
+}
