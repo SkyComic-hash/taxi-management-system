@@ -1,0 +1,28 @@
+using System.Collections.Generic;
+using System.Linq;
+using CabSystem.Models;
+
+namespace CabSystem.Services
+{
+    public class DriverService
+    {
+        private readonly DatabaseHelper _dbHelper = new DatabaseHelper();
+        
+        public Driver GetDriverById(int driverId)
+        {
+            return _dbHelper.GetDrivers()
+                .FirstOrDefault(d => d.DriverId == driverId);
+        }
+
+        public List<Driver> GetAllDrivers()
+        {
+            return _dbHelper.GetDrivers();
+        }
+
+        public void UpdateDriver(Driver driver)
+        {
+            // Логика обновления водителя в базе данных
+            _dbHelper.UpdateDriver(driver);
+        }
+    }
+}
