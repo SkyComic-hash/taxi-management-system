@@ -6,7 +6,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq;
+using CabSystem.Models;
 
+namespace CabSystem
+{
+    public class LoginValidations
+    {
+        private readonly DatabaseHelper _dbHelper = new DatabaseHelper();
+
+        public Admin AdminLoginValidation(string username, string password)
+        {
+            // Пример: получение данных из базы
+            var admins = _dbHelper.GetAdmins();
+            return admins.FirstOrDefault(a => 
+                a.AdminUsername == username && 
+                a.AdminPassword == password);
+        }
+
+        public Customer CustomerLoginValidation(string username, string password)
+        {
+            // Пример: получение данных из базы
+            var customers = _dbHelper.GetCustomers();
+            return customers.FirstOrDefault(c => 
+                c.CustomerUsername == username && 
+                c.CustomerPassword == password);
+        }
+
+        public Driver DriverLoginValidation(string username, string password)
+        {
+            // Новый метод для водителей
+            var drivers = _dbHelper.GetDrivers();
+            return drivers.FirstOrDefault(d => 
+                d.DriverUsername == username && 
+                d.DriverPassword == password);
+        }
+    }
+}
 namespace CabSystem
 {
     public class LoginValidations
