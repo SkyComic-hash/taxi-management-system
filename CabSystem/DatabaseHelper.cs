@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CabSystem.Models;
 
 namespace CabSystem
 {
@@ -379,5 +380,28 @@ namespace CabSystem
 
 
 
+    }
+}
+public List<CarModel> GetCars()
+        {
+            // Логика получения автомобилей из БД
+            return new List<CarModel>();
+        }
+        
+        public List<OrderModel> GetOrders()
+        {
+            // Логика получения заказов из БД
+            return new List<OrderModel>();
+        }
+        
+        public void AddOrder(OrderModel order)
+        {
+            // Логика добавления заказа в БД
+        }
+        
+        public void UpdateCar(CarModel car)
+        {
+            // Логика обновления автомобиля в БД
+        }
     }
 }
