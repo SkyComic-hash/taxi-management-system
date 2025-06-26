@@ -1,38 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace CabSystem
 {
     public class Driver : Person
     {
-        public string DriverID { get; set; }
-
-        private string driverPassword { get; set; }
-
-
-        public string _driverPassword
-        {
-            get { return driverPassword; }
-            set { driverPassword = value; }
-        }
-        public int ContactNumber { get; set; }
+        public int DriverId { get; set; } // Изменено на int для согласованности
+        public string DriverPassword { get; set; }
+        public string ContactNumber { get; set; } // Изменено на string для гибкости
         public string Availability { get; set; }
 
-        public Driver(string driverID, string name, string DriverPassword, string address, int contactNumber, string gender) : base(name, address, gender)
+        // Новое поле для связи с автомобилем
+        public int? CarId { get; set; }
+
+        public Driver(int driverId, string name, string driverPassword, 
+                     string address, string contactNumber, string gender) 
+                     : base(name, address, gender)
         {
-            DriverID = driverID;
-            _driverPassword = DriverPassword;
+            DriverId = driverId;
+            DriverPassword = driverPassword;
             ContactNumber = contactNumber;
             Availability = "Available";
-
+            CarId = null;
         }
 
         public override string ToString()
         {
-            return $"{Name}\n{Address}\n {Gender}";
+            return $"{Name}\n{Address}\n{Gender}";
         }
     }
 }
